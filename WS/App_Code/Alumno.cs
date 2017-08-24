@@ -11,8 +11,10 @@ public class Alumno {
     int _dni;
     public int Dni { get { return _dni; } set { _dni = value; } }
 
+
     //List<Examen> _examenes;
     Dictionary<string, List<int>> _examenes = new Dictionary<string, List<int>>();
+    public Dictionary<string, List<int>> Examenes { get { return _examenes; } set { _examenes = value; } }
     //public List<Examen> Examenes { get { return _examenes; } set { _examenes = value; }}
 
     public Alumno() {}
@@ -37,5 +39,21 @@ public class Alumno {
         res.Res = true;
         return res;
 
+    }
+
+    public void CerrarNotas(ref Dictionary<string, bool> notas) {
+        int promedio;
+        foreach (string materia in _examenes.Keys) {
+            promedio = 0;
+            for (int i = 0; i < _examenes[materia].Count; i++)
+            {
+                promedio += _examenes[materia][i];
+            }
+            promedio /= _examenes[materia].Count;
+            if (promedio > 8)
+                notas.Add(materia, true);
+            else
+                notas.Add(materia, false);
+        }
     }
 }

@@ -18,28 +18,20 @@ public class WebService : System.Web.Services.WebService
 
     List<string> materias = new List<string>();
 
-    public WebService()
-    {
-        //materias = new List<string>();
+    public WebService() {
         materias.Add("Fisica");
         materias.Add("Programacion");
         materias.Add("Algebra");
-        //Elimine la marca de comentario de la línea siguiente si utiliza los componentes diseñados 
-        //InitializeComponent(); 
     }
 
     [WebMethod]
-    public Respuesta CargarAlumno(string nombre, int dni)
-    {
-        // No existe -> agrega | Existe -> Error
+    public Respuesta CargarAlumno(string nombre, int dni) {
         HttpContext context = HttpContext.Current;
 
-        if (context.Application["List"] == null)
-        {
+        if (context.Application["List"] == null) {
             alumnos = new List<Alumno>();
         }
-        else
-        {
+        else {
             alumnos = (List<Alumno>)context.Application["List"];
         }
 
@@ -100,23 +92,39 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CerrarNotas() {
+    public List<NotasCerradas> CerrarNotas() {
         HttpContext context = HttpContext.Current;
 
-        if (context.Application["List"] == null)
-        {
+        if (context.Application["List"] == null) {
             alumnos = new List<Alumno>();
         }
-        else
-        {
+        else {
             alumnos = (List<Alumno>)context.Application["List"];
         }
-        Dictionary<Alumno, Dictionary<string, bool>> notasCerradas = new Dictionary<Alumno, Dictionary<string, bool>>();
 
+        List<NotasCerradas> notas = new List<NotasCerradas>();
 
-        // Para cada alumno y cada materia
-        // Devuelve lista alumnos con lista de sus materias con aprobado o reprovado
-        return "Hola a todos";
+        foreach(Alumno al in alumnos) {
+            NotasCerradas nota = new NotasCerradas();
+            nota.Alumno = al.Name;
+            nota.Dni = al.Dni;
+
+            foreach (string materia in al.Examenes.Keys) {
+                Materia mat = new Materia();
+                mat.Nombre = materia;
+                int promedio = 0;
+                for (int j = 0; j < al.Examenes[materia].Count; j++)
+                {
+                    promedio += al.Examenes[materia][j];
+                }
+                promedio /= al.Examenes[materia].Count;
+                mat.Aprobado = (promedio >= 7);
+
+                nota.Materias.Add(mat);
+            }
+            notas.Add(nota);
+        }
+        return notas;
     }
 
     [WebMethod]
