@@ -1,6 +1,6 @@
 <html>
     <head>
-    <title>AgregarAlumno</title>
+    <title>AgregarAlumno</title>  
     <style>
         div label{
             display: block;
@@ -8,20 +8,21 @@
             }
 
         input{
-            border: solid 1px black;
+            border: solid 2px black;
             }
     </style> 
     </head>
     <body>
         <form action="ResAgregarAlumno.php" method="post">
             <fieldset>
+                <legend align="center">Agregar Alumno</legend>
                 <div align="center">
-                    <label>Nombre</label>
-                    <input type="text" name="nombre">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre">
                 </div>
                 <div align="center">
-                    <label>DNI</label>
-                    <input type="text" name="dni">
+                    <label for="dni">DNI</label>
+                    <input type="text" name="dni" id="dni">
                 </div>
                 </br>
                 <div align="center">
