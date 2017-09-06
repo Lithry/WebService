@@ -22,7 +22,7 @@
                 </div>
                 <div align="center">
                     <label for="dni">DNI</label>
-                    <input type="text" name="dni" id="dni">
+                    <input type="number" name="dni" id="dni">
                 </div>
                 </br>
                 <div align="center">

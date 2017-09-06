@@ -25,7 +25,7 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Respuesta CargarAlumno(string nombre, int dni) {
+    public Respuesta CargarAlumno(string nombre, string dni) {
         HttpContext context = HttpContext.Current;
 
         if (context.Application["List"] == null) {
@@ -36,7 +36,17 @@ public class WebService : System.Web.Services.WebService
         }
 
         Respuesta res = new Respuesta();
-        Alumno al = new Alumno(nombre, dni);
+        for (int i = 0; i < dni.Length; i++)
+        {
+            if (!char.IsDigit(dni[i]))
+            {
+                res.Res = false;
+                res.Exp = "DNI Incorrecto";
+                return res;
+            }
+        }
+
+        Alumno al = new Alumno(nombre, int.Parse(dni));
 
         foreach (Alumno alum in alumnos)
         {
