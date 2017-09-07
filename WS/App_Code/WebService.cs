@@ -11,7 +11,7 @@ using System.Web.Services;
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // Para permitir que se llame a este servicio web desde un script, usando ASP.NET AJAX, quite la marca de comentario de la línea siguiente. 
-// [System.Web.Script.Services.ScriptService]
+[System.Web.Script.Services.ScriptService]
 public class WebService : System.Web.Services.WebService
 {
     List<Alumno> alumnos;
@@ -22,6 +22,12 @@ public class WebService : System.Web.Services.WebService
         materias.Add("Fisica");
         materias.Add("Programacion");
         materias.Add("Algebra");
+    }
+
+    [WebMethod]
+    public string testAssignment(string inputData)
+    {
+        return inputData;
     }
 
     [WebMethod]

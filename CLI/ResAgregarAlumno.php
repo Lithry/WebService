@@ -16,10 +16,8 @@
         <div align="center" style="border:1px solid red">
             <?php
             require_once "nusoap.php";
-            //include("nusoap.php");
-            //include 'nusoap.php';
-            //$client = new SoapClient("http://localhost:64515/WebService.asmx?WSDL");
-            $client = new nusoap_client("http://localhost:64515/WebService.asmx?WSDL");
+            
+            $client = new nusoap_client("http://localhost:64515/WebService.asmx?WSDL", "WSDL");
             
             $error  = $client->getError();
             if ($error) {
@@ -29,15 +27,11 @@
             $nombre = $_POST['nombre'];
             $dni = $_POST['dni'];
             $array = array('nombre'=>$nombre, 'dni'=>$dni);
-            //$array = array('nombre'=>$nombre, 'dni'=>$dni);
             
-            $result = $client->call("CargarAlumno", $array);
-            //$result = $client->__soapCall('CargarAlumno', $array[]);
-
-            //echo $result['Exp'];
+            $result = $client->call('CargarAlumno', $array);
 
             if ($client->fault) {
-                echo "<h2>Fault</h2><pre>";
+                echo "<h2>Client Fault</h2><pre>";
                 print_r($result);
                 echo "</pre>";
             } else {
@@ -46,11 +40,33 @@
                     echo "<h2>Error</h2><pre>" . $error . "</pre>";
                 } else {
                     echo "<h2>Main</h2>";
-                    echo $result;
+                    echo $result['CargarAlumnoResult']->Array['Exp'];
+                    print_r($result);
                 }
             }
-
-
+            
+            /*
+            require 'nusoap.php';
+            $client = new nusoap_client('http://localhost:64515/WebService.asmx?WSDL', 'WSDL');
+            
+            
+            $error = $client->getError();
+            if ($error) {
+                die("client construction error: {$error}\n");
+            }
+            
+            $nombre = $_POST['nombre'];
+            $dni = $_POST['dni'];
+            $param = array('nombre'=>$nombre, 'dni'=>$dni);
+            $answer = $client->call('CargarAlumno', array('parameters' => $param), '', '', false, true);
+            
+            $error = $client->getError();
+            if ($error) {
+                print_r($client->response);
+                print_r($client->getDebug());
+                die();
+             }
+             */
             ?>
         </div>
         </br>

@@ -17,11 +17,11 @@
         <fieldset>
             <div align="center">
                 <label>DNI</label>
-                <input type="text" name="dni">
+                <input type="number" name="dni">
             </div>
             <div align="center">
                 <label>Nota</label>
-                <input type="text" name="nota">
+                <input type="number" name="nota">
             </div>
             <div align="center">
                 <label>Materia</label>
