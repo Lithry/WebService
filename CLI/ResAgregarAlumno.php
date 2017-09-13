@@ -17,7 +17,7 @@
             <?php
             require_once "nusoap.php";
             
-            $client = new nusoap_client("http://localhost:64515/WebService.asmx?WSDL", "WSDL");
+            $client = new nusoap_client("http://localhost:51189/WebService.asmx?WSDL", "WSDL");
             
             $error  = $client->getError();
             if ($error) {
@@ -39,9 +39,9 @@
                 if ($error) {
                     echo "<h2>Error</h2><pre>" . $error . "</pre>";
                 } else {
-                    echo "<h2>Main</h2>";
-                    echo $result['CargarAlumnoResult']->Array['Exp'];
-                    print_r($result);
+                    echo "<h2>Main</h2><pre>" . $result['CargarAlumnoResult'] . "</pre>";
+                    //echo $result['CargarAlumnoResult'];
+                    //print_r($result);
                 }
             }
             

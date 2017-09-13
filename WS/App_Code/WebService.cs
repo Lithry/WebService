@@ -31,7 +31,7 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Respuesta CargarAlumno(string nombre, string dni) {
+    public string CargarAlumno(string nombre, string dni) {
         HttpContext context = HttpContext.Current;
 
         if (context.Application["List"] == null) {
@@ -41,14 +41,15 @@ public class WebService : System.Web.Services.WebService
             alumnos = (List<Alumno>)context.Application["List"];
         }
 
-        Respuesta res = new Respuesta();
+        string respond = "";
+        //Respuesta res = new Respuesta();
         for (int i = 0; i < dni.Length; i++)
         {
             if (!char.IsDigit(dni[i]))
             {
-                res.Res = false;
-                res.Exp = "DNI Incorrecto";
-                return res;
+                //res.Res = false;
+                respond = "DNI Incorrecto";
+                return respond;
             }
         }
 
@@ -58,16 +59,16 @@ public class WebService : System.Web.Services.WebService
         {
             if (alum.Dni == al.Dni)
             {
-                res.Res = false;
-                res.Exp = "Alumno Duplicado";
-                return res;
+                //res.Res = false;
+                respond = "Alumno Duplicado";
+                return respond;
             }
         }
         alumnos.Add(al);
-        res.Res = true;
-        res.Exp = "Alumno Cargado";
+        //res.Res = true;
+        respond = "Alumno Cargado";
         context.Application["List"] = alumnos;
-        return res;
+        return respond;
     }
 
     [WebMethod]
