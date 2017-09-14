@@ -24,19 +24,18 @@ public class Alumno {
         _dni = dni;
     }
 
-    public Respuesta AgregarExamen(Examen nExamen){
-        Respuesta res = new Respuesta();
+    public string AgregarExamen(Examen nExamen){
+        string res = "";
         if (_examenes.ContainsKey(nExamen.Materia)) {
             _examenes[nExamen.Materia].Add(nExamen.Nota);
-            res.Exp = "se agrego la nota a la lista de notas del alumno";
+            res = "se agrego la nota (" + nExamen.Nota + ") a la lista de notas del alumno de la materia " + nExamen.Materia;
         }
         else {
             List<int> notas = new List<int>();
             notas.Add(nExamen.Nota);
             _examenes.Add(nExamen.Materia, notas);
-            res.Exp = "Se agrego la materia y su lista de notas al alumno";
+            res = "Se agrego la materia " + nExamen.Materia + " y la nota (" + nExamen.Nota + ") con su lista al alumno";
         }
-        res.Res = true;
         return res;
 
     }

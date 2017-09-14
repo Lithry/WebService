@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using System.Web.Script.Serialization;
 
 
 /// <summary>
@@ -72,7 +73,7 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Respuesta CargarExamen(int dniAlumno, int nota, string materia) {
+    public string CargarExamen(string dni, string nota, string materia) {
         // Alumno existe -> agrega | Alumno no existe -> Error
         HttpContext context = HttpContext.Current;
 
@@ -83,33 +84,40 @@ public class WebService : System.Web.Services.WebService
             alumnos = (List<Alumno>)context.Application["List"];
         }
 
-        Respuesta res = new Respuesta();
+        string respond = "";
+        //Respuesta res = new Respuesta();
+
+        if (dni == null)
+        {
+            respond = "DNI Nulo";
+            return respond;
+        }
 
         if (!materias.Contains(materia)) {
-            res.Res = false;
-            res.Exp = "No existe la materia";
+            //res.Res = false;
+            respond = "No existe la materia";
             context.Application["List"] = alumnos;
-            return res;
+            return respond;
 
         }
 
         foreach (Alumno alum in alumnos) {
-            if (alum.Dni == dniAlumno) {
-                Examen nExamen = new Examen(nota, materia);
-                res = alum.AgregarExamen(nExamen);
+            if (alum.Dni == int.Parse(dni)) {
+                Examen nExamen = new Examen(int.Parse(nota), materia);
+                respond = alum.AgregarExamen(nExamen);
                 context.Application["List"] = alumnos;
-                return res;
+                return respond;
             }
         }
 
-        res.Res = false;
-        res.Exp = "No existe alumno";
+        //res.Res = false;
+        respond = "No existe alumno";
         context.Application["List"] = alumnos;
-        return res;
+        return respond;
     }
 
     [WebMethod]
-    public List<NotasCerradas> CerrarNotas() {
+    public string CerrarNotas() {
         HttpContext context = HttpContext.Current;
 
         if (context.Application["List"] == null) {
@@ -141,7 +149,10 @@ public class WebService : System.Web.Services.WebService
             }
             notas.Add(nota);
         }
-        return notas;
+
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        string json = serializer.Serialize(notas);
+        return json;
     }
 
     [WebMethod]
