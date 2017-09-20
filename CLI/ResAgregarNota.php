@@ -17,7 +17,7 @@
             <?php
             require_once "nusoap.php";
             
-            $client = new nusoap_client("http://localhost:51189/WebService.asmx?WSDL", "WSDL");
+            $client = new nusoap_client("http://localhost:64579/WebService.asmx?WSDL", "WSDL");
             
             $error  = $client->getError();
             if ($error) {
@@ -25,11 +25,8 @@
             }
           
             $dni = $_POST['dni'];
-            echo $dni . " ";
             $nota = $_POST['nota'];
-            echo $nota . " ";
             $materia = $_POST['materia'];
-            echo $materia;
             $param = array('dni'=>$dni, 'nota'=>$nota, 'materia'=>$materia);
             
             $result = $client->call('CargarExamen', $param);

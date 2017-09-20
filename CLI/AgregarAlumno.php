@@ -25,6 +25,13 @@
                     <input type="number" name="dni" id="dni">
                 </div>
                 </br>
+                <!--
+                <div align="center">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
+                    <input type="file" name="imagen" id="imagen" />
+                </div>
+                -->
+                </br>
                 <div align="center">
                     <input type="submit" value="Agregar">
                 </div>

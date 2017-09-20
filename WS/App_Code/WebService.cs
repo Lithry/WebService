@@ -53,22 +53,29 @@ public class WebService : System.Web.Services.WebService
                 return respond;
             }
         }
-
-        Alumno al = new Alumno(nombre, int.Parse(dni));
-
-        foreach (Alumno alum in alumnos)
-        {
-            if (alum.Dni == al.Dni)
-            {
-                //res.Res = false;
-                respond = "Alumno Duplicado";
-                return respond;
-            }
+        if ((nombre == null || nombre == "") || (dni == null || dni == "")) {
+            respond = "No se ha enviado informacion correcta";
         }
-        alumnos.Add(al);
-        //res.Res = true;
-        respond = "Alumno Cargado";
-        context.Application["List"] = alumnos;
+        else {
+            int _dni = 0;
+            int.TryParse(dni, out _dni);
+            Alumno al = new Alumno(nombre, _dni);
+
+            foreach (Alumno alum in alumnos)
+            {
+                if (alum.Dni == al.Dni)
+                {
+                    //res.Res = false;
+                    respond = "Alumno Duplicado";
+                    return respond;
+                }
+            }
+            alumnos.Add(al);
+            //res.Res = true;
+            respond = "Alumno Cargado";
+            context.Application["List"] = alumnos;
+        }
+
         return respond;
     }
 
@@ -85,12 +92,10 @@ public class WebService : System.Web.Services.WebService
         }
 
         string respond = "";
-        //Respuesta res = new Respuesta();
-
-        if (dni == null)
+        
+        if ((dni == null || dni == "") || (nota == null || nota == "") || (materia == null || materia == ""))
         {
-            respond = "DNI Nulo";
-            return respond;
+            return respond = "No se ha enviado informacion correcta";
         }
 
         if (!materias.Contains(materia)) {
@@ -111,9 +116,8 @@ public class WebService : System.Web.Services.WebService
         }
 
         //res.Res = false;
-        respond = "No existe alumno";
         context.Application["List"] = alumnos;
-        return respond;
+        return respond = "No existe alumno";
     }
 
     [WebMethod]
