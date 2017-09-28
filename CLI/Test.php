@@ -15,48 +15,47 @@
     </br>
         <div align="center" style="border:1px solid red">
             <?php
-            require_once "nusoap.php";
             
-            $client = new nusoap_client("http://localhost:53256/WebService.asmx?WSDL", "WSDL");
-            
-            $error  = $client->getError();
-            if ($error) {
-                echo "<h2>Constructor error</h2><pre>" . $error . "</pre>";
-            }
-          
             $nombre = $_POST['nombre'];
             $dni = $_POST['dni'];
-            $photo = '';
-
+            print_r($_FILES['photo']);
             $file_name = $_FILES['photo']['name'];
+            $file_type = $_FILES['photo']['type'];
             $file_size = $_FILES['photo']['size'];
             $file_tmp = $_FILES['photo']['tmp_name'];
             $file_store = "Upload/" . $file_name;
             
+
+
             if ($file_size > 0){
                 move_uploaded_file($file_tmp, $file_store);
                 echo "Image Loaded </br>";
                 $photo = base64_encode(file_get_contents($file_store));
             } else{
                 echo "Image not set" . "</br>";
+                $photo = "";
             }
-         
-            $array = array('nombre'=>$nombre, 'dni'=>$dni, 'photo'=>$poho);
             
-            $result = $client->call('CargarAlumno', $array);
+            
 
-            if ($client->fault) {
-                echo "<h2>Client Fault</h2><pre>";
-                print_r($result);
-                echo "</pre>";
-            } else {
-                $error = $client->getError();
-                if ($error) {
-                    echo "<h2>Error</h2><pre>" . $error . "</pre>";
-                } else {
-                    echo "<h2>Main</h2><pre>" . $result['CargarAlumnoResult'] . "</pre>" . $photo;
-                }
+            echo $nombre . "</br>";
+            echo $dni . "</br>";
+            
+            /*if ($_FILES["photo"]["error"] > 0)
+            {
+                echo "Error: " . $_FILES["photo"]["error"] . "<br />";
             }
+            else
+            {
+                echo "Upload: " . $_FILES["photo"]["name"] . "<br />";
+                echo "Type: " . $_FILES["photo"]["type"] . "<br />";
+                echo "Size: " . ($_FILES["photo"]["size"] / 1024) . " Kb<br />";
+                echo "Stored in: " . $_FILES["photo"]["tmp_name"] . "</br>";
+                echo '<img src="images/gallery/' . $_FILES["photo"]["tmp_name"] . '.jpg">';
+            }*/
+            
+            
+
             ?>
         </div>
         </br>

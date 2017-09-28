@@ -11,9 +11,21 @@
             border: solid 2px black;
             }
     </style> 
+        <script>
+            var photoTmp = "";
+            function encodeImageFileAsURL(element) {
+                var file = element.files[0];
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    photoTmp = reader.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        </script>
     </head>
     <body>
-        <form action="ResAgregarAlumno.php" method="post">
+        <form enctype="multipart/form-data" action="ResAgregarAlumno.php" method="post">
+        <!--<form enctype="multipart/form-data" action="Test.php" method="post">-->
             <fieldset>
                 <legend align="center">Agregar Alumno</legend>
                 <div align="center">
@@ -25,12 +37,9 @@
                     <input type="number" name="dni" id="dni">
                 </div>
                 </br>
-                <!--
                 <div align="center">
-                    <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
-                    <input type="file" name="imagen" id="imagen" />
+                    <input type="file" accept="image/*" name="photo" id="photo"/>
                 </div>
-                -->
                 </br>
                 <div align="center">
                     <input type="submit" value="Agregar">

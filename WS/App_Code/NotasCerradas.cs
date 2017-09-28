@@ -7,6 +7,9 @@ using System.Web;
 /// Descripción breve de NotasCerradas
 /// </summary>
 public class NotasCerradas {
+    string _photo;
+    public string Photo { get { return _photo; } set { _photo = value; } }
+
     string _alumno;
     public string Alumno { get { return _alumno; } set { _alumno = value; } }
 
@@ -18,26 +21,4 @@ public class NotasCerradas {
 
 
     public NotasCerradas() {}
-
-    /*public void CerrarNotas()
-    {
-        if (_alumno != null)
-        {
-            int promedio;
-            foreach (string materia in _alumno.Examenes.Keys)
-            {
-                promedio = 0;
-                for (int i = 0; i < _alumno.Examenes[materia].Count; i++)
-                {
-                    promedio += _alumno.Examenes[materia][i];
-                }
-                promedio /= _alumno.Examenes[materia].Count;
-                if (promedio > 8)
-                    notas.Add(materia, true);
-                else
-                    notas.Add(materia, false);
-            }
-        }
-    }*/
-
 }

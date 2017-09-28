@@ -32,7 +32,7 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CargarAlumno(string nombre, string dni) {
+    public string CargarAlumno(string nombre, string dni, string photo) {
         HttpContext context = HttpContext.Current;
 
         if (context.Application["List"] == null) {
@@ -53,13 +53,13 @@ public class WebService : System.Web.Services.WebService
                 return respond;
             }
         }
-        if ((nombre == null || nombre == "") || (dni == null || dni == "")) {
+        if ((nombre == null || nombre == "") || (dni == null || dni == "") || (photo == null)) {
             respond = "No se ha enviado informacion correcta";
         }
         else {
             int _dni = 0;
             int.TryParse(dni, out _dni);
-            Alumno al = new Alumno(nombre, _dni);
+            Alumno al = new Alumno(nombre, _dni, photo);
 
             foreach (Alumno alum in alumnos)
             {
@@ -135,6 +135,7 @@ public class WebService : System.Web.Services.WebService
 
         foreach(Alumno al in alumnos) {
             NotasCerradas nota = new NotasCerradas();
+            nota.Photo = al.Photo;
             nota.Alumno = al.Name;
             nota.Dni = al.Dni;
 

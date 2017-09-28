@@ -37,7 +37,7 @@
 
             require_once "nusoap.php";
 
-            $client = new nusoap_client("http://localhost:64579/WebService.asmx?WSDL", "WSDL");
+            $client = new nusoap_client("http://localhost:53256/WebService.asmx?WSDL", "WSDL");
 
             $error  = $client->getError();
             if ($error) {
@@ -58,14 +58,11 @@
                     echo "<h2>Error</h2><pre>" . $error . "</pre>";
                 } else {
                     echo "<h2>Main</h2>";
-                    //print_r($result);
-                    //print "Deserialized: ".var_export($result['CerrarNotasResult'],true)."\n";
-                    //var_dump($result['CerrarNotasResult']);
-                    //print_r(json_decode($result['CerrarNotasResult']));
+
                     $class = new JSONObject($result['CerrarNotasResult']);
 
                     foreach($class as $alumno) {
-                        //print_r(json_decode($result['CerrarNotasResult']));
+                        echo imagecreatefromstring(base64_decode($alumno -> {'Photo'}));
                         echo "Alumno: " . $alumno -> {'Alumno'} . '</br>';
                         echo "DNI: " . $alumno -> {'Dni'} . '</br>';
                         foreach($alumno -> {'Materias'} as $materia){

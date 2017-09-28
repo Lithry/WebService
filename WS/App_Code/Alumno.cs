@@ -11,6 +11,8 @@ public class Alumno {
     int _dni;
     public int Dni { get { return _dni; } set { _dni = value; } }
 
+    string _photo;
+    public string Photo { get { return _photo; } set { _photo = value; } }
 
     //List<Examen> _examenes;
     Dictionary<string, List<int>> _examenes = new Dictionary<string, List<int>>();
@@ -19,9 +21,10 @@ public class Alumno {
 
     public Alumno() {}
 
-    public Alumno(string name, int dni) {
-        Name = name;
+    public Alumno(string name, int dni, string photo) {
+        _name = name;
         _dni = dni;
+        _photo = photo;
     }
 
     public string AgregarExamen(Examen nExamen){
