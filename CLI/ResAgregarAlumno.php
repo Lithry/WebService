@@ -26,19 +26,15 @@
           
             $nombre = $_POST['nombre'];
             $dni = $_POST['dni'];
-            $photo = '';
-
-            $file_name = $_FILES['photo']['name'];
-            $file_size = $_FILES['photo']['size'];
-            $file_tmp = $_FILES['photo']['tmp_name'];
-            $file_store = "Upload/" . $file_name;
             
-            if ($file_size > 0){
-                move_uploaded_file($file_tmp, $file_store);
-                echo "Image Loaded </br>";
-                $photo = base64_encode(file_get_contents($file_store));
+            $file_size = $_FILES['photo']['size'];
+            if ($file_size !== 0){
+                $file_name = $_FILES['photo']['name'];
+                $file_type = $_FILES['photo']['type'];
+                $file_tmp = $_FILES['photo']['tmp_name'];
+                $photo = base64_encode(file_get_contents($file_tmp));
             } else{
-                echo "Image not set" . "</br>";
+                $photo = "";
             }
          
             $array = array('nombre'=>$nombre, 'dni'=>$dni, 'photo'=>$poho);

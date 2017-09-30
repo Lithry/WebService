@@ -18,43 +18,21 @@
             
             $nombre = $_POST['nombre'];
             $dni = $_POST['dni'];
-            print_r($_FILES['photo']);
-            $file_name = $_FILES['photo']['name'];
-            $file_type = $_FILES['photo']['type'];
-            $file_size = $_FILES['photo']['size'];
-            $file_tmp = $_FILES['photo']['tmp_name'];
-            $file_store = "Upload/" . $file_name;
             
-
-
-            if ($file_size > 0){
-                move_uploaded_file($file_tmp, $file_store);
-                echo "Image Loaded </br>";
-                $photo = base64_encode(file_get_contents($file_store));
+            $file_size = $_FILES['photo']['size'];
+            if ($file_size !== 0){
+                $file_name = $_FILES['photo']['name'];
+                $file_type = $_FILES['photo']['type'];
+                $file_tmp = $_FILES['photo']['tmp_name'];
+                $photo = base64_encode(file_get_contents($file_tmp));
             } else{
-                echo "Image not set" . "</br>";
                 $photo = "";
             }
-            
-            
 
             echo $nombre . "</br>";
             echo $dni . "</br>";
-            
-            /*if ($_FILES["photo"]["error"] > 0)
-            {
-                echo "Error: " . $_FILES["photo"]["error"] . "<br />";
-            }
-            else
-            {
-                echo "Upload: " . $_FILES["photo"]["name"] . "<br />";
-                echo "Type: " . $_FILES["photo"]["type"] . "<br />";
-                echo "Size: " . ($_FILES["photo"]["size"] / 1024) . " Kb<br />";
-                echo "Stored in: " . $_FILES["photo"]["tmp_name"] . "</br>";
-                echo '<img src="images/gallery/' . $_FILES["photo"]["tmp_name"] . '.jpg">';
-            }*/
-            
-            
+            echo "<img src=\"data:image/$file_type;base64,$photo\"/></br>";
+            echo $photo;
 
             ?>
         </div>
