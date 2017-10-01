@@ -14,6 +14,9 @@ public class Alumno {
     string _photo;
     public string Photo { get { return _photo; } set { _photo = value; } }
 
+    string _photoFileType;
+    public string PhotoFileType { get { return _photoFileType; } set { _photoFileType = value; } }
+
     //List<Examen> _examenes;
     Dictionary<string, List<int>> _examenes = new Dictionary<string, List<int>>();
     public Dictionary<string, List<int>> Examenes { get { return _examenes; } set { _examenes = value; } }
@@ -21,10 +24,11 @@ public class Alumno {
 
     public Alumno() {}
 
-    public Alumno(string name, int dni, string photo) {
+    public Alumno(string name, int dni, string photo, string photoType) {
         _name = name;
         _dni = dni;
         _photo = photo;
+        _photoFileType = photoType;
     }
 
     public string AgregarExamen(Examen nExamen){

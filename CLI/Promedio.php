@@ -37,7 +37,7 @@
 
             require_once "nusoap.php";
 
-            $client = new nusoap_client("http://localhost:53256/WebService.asmx?WSDL", "WSDL");
+            $client = new nusoap_client("http://localhost:63678/WebService.asmx?WSDL", "WSDL");
 
             $error  = $client->getError();
             if ($error) {
@@ -62,7 +62,9 @@
                     $class = new JSONObject($result['CerrarNotasResult']);
 
                     foreach($class as $alumno) {
-                        echo imagecreatefromstring(base64_decode($alumno -> {'Photo'}));
+                        $fileType = $alumno -> {'PhotoFileType'};
+                        $photo = $alumno -> {'Photo'};
+                        echo "<img src=\"data:image/$fileType;base64,$photo\" width=\"160\" height=\"160\"/></br>";
                         echo "Alumno: " . $alumno -> {'Alumno'} . '</br>';
                         echo "DNI: " . $alumno -> {'Dni'} . '</br>';
                         foreach($alumno -> {'Materias'} as $materia){

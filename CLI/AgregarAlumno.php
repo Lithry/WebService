@@ -24,8 +24,7 @@
         </script>
     </head>
     <body>
-        <!--<form enctype="multipart/form-data" action="ResAgregarAlumno.php" method="post">-->
-        <form enctype="multipart/form-data" action="Test.php" method="post">
+        <form enctype="multipart/form-data" action="ResAgregarAlumno.php" method="post">
             <fieldset>
                 <legend align="center">Agregar Alumno</legend>
                 <div align="center">

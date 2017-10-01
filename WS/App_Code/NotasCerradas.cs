@@ -10,6 +10,9 @@ public class NotasCerradas {
     string _photo;
     public string Photo { get { return _photo; } set { _photo = value; } }
 
+    string _photoFileType;
+    public string PhotoFileType { get { return _photoFileType; } set { _photoFileType = value; } }
+
     string _alumno;
     public string Alumno { get { return _alumno; } set { _alumno = value; } }
 

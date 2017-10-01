@@ -17,7 +17,7 @@
             <?php
             require_once "nusoap.php";
             
-            $client = new nusoap_client("http://localhost:53256/WebService.asmx?WSDL", "WSDL");
+            $client = new nusoap_client("http://localhost:63678/WebService.asmx?WSDL", "WSDL");
             
             $error  = $client->getError();
             if ($error) {
@@ -34,10 +34,12 @@
                 $file_tmp = $_FILES['photo']['tmp_name'];
                 $photo = base64_encode(file_get_contents($file_tmp));
             } else{
-                $photo = "";
+                $defaultImageBase64="DefaultImage/ImageBase64.txt";
+                $photo = file_get_contents($defaultImageBase64);
+                $file_type = "image/png";
             }
          
-            $array = array('nombre'=>$nombre, 'dni'=>$dni, 'photo'=>$poho);
+            $array = array('nombre'=>$nombre, 'dni'=>$dni, 'photo'=>$photo, 'photoFileType'=>$file_type);
             
             $result = $client->call('CargarAlumno', $array);
 
@@ -50,7 +52,7 @@
                 if ($error) {
                     echo "<h2>Error</h2><pre>" . $error . "</pre>";
                 } else {
-                    echo "<h2>Main</h2><pre>" . $result['CargarAlumnoResult'] . "</pre>" . $photo;
+                    echo "<h2>Main</h2><pre>" . $result['CargarAlumnoResult'];
                 }
             }
             ?>
