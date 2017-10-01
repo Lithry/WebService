@@ -25,7 +25,11 @@
             </div>
             <div align="center">
                 <label>Materia</label>
-                <input type="text" name="materia">
+                <select name="materia">
+                        <option value="Programacion">Programacion</option>
+                        <option value="Algebra">Algebra</option>
+                        <option value="Fisica">Fisica</option>
+                </select>
             </div>
             </br>
             <div align="center">
